@@ -20,7 +20,7 @@ or possibly your `~/.bash_profile`.
 ## Setting Up The Java Application
 
 This application uses the lightweight [Spark Framework](www.sparkjava.com), and
-requires Java 8. 
+requires Java 8 and [Maven](https://maven.apache.org/install.html). 
 
 Begin by creating a configuration file for your application:
 

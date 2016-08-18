@@ -1,5 +1,6 @@
 .DS_Store
 .env
+.env.ps1
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -22,6 +23,7 @@ tmp/
 local.properties
 .settings/
 .loadpath
+nb-configuration.xml
 
 # Eclipse Core
 .project

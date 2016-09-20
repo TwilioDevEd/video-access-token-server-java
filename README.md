@@ -1,4 +1,4 @@
-# IP Messaging Quickstart for Java
+# Video Quickstart for Java
 
 This application should give you a ready-made starting point for writing your
 own video chatting apps with Twilio Video. Before we begin, we need to collect

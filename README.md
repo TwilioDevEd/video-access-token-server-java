@@ -36,13 +36,7 @@ based systems:
 source .env
 ```
 
-Next, we need to install our depenedencies from Maven:
-
-```bash
-mvn install
-```
-
-And compile our application code:
+Next, we compile our application code:
 
 ```bash
 mvn package

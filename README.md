@@ -32,7 +32,6 @@ cp .env.example .env
 
 Edit `.env` with the four configuration parameters we gathered from above. 
 
-<<<<<<< HEAD
 ```bash
 source .env
 ```
@@ -66,9 +65,6 @@ mvn install
 ```
 
 And compile our application code:
-=======
-Next, we compile our application code:
->>>>>>> master
 
 ```bash
 mvn package

@@ -1,4 +1,4 @@
-# IP Messaging Quickstart for Java
+# Video Quickstart for Java
 
 This application should give you a ready-made starting point for writing your
 own video apps with Twilio Video. Before we begin, we need to collect
@@ -19,7 +19,7 @@ or possibly your `~/.bash_profile`.
 
 ## Setting Up The Java Application
 
-This application uses the lightweight [Spark Framework](www.sparkjava.com), and
+This application uses the lightweight [Spark Framework](http://sparkjava.com/), and
 requires Java 8 and [Maven](https://maven.apache.org/install.html). 
 
 ### Mac & Linux
@@ -30,10 +30,9 @@ Begin by creating a configuration file for your application:
 cp .env.example .env
 ```
 
-Edit `.env` with the four configuration parameters we gathered from above. Export
-the configuration in this file as system environment variables like so on Unix
-based systems:
+Edit `.env` with the four configuration parameters we gathered from above. 
 
+<<<<<<< HEAD
 ```bash
 source .env
 ```
@@ -67,6 +66,9 @@ mvn install
 ```
 
 And compile our application code:
+=======
+Next, we compile our application code:
+>>>>>>> master
 
 ```bash
 mvn package

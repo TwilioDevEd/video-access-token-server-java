@@ -3,8 +3,9 @@ package com.twilio;
 import com.google.gson.Gson;
 
 import com.github.javafaker.Faker;
-import com.twilio.sdk.auth.AccessToken;
-import com.twilio.sdk.auth.ConversationsGrant;
+import com.google.gson.Gson;
+import com.twilio.jwt.accesstoken.AccessToken;
+import com.twilio.jwt.accesstoken.VideoGrant;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,8 +33,8 @@ public class Webapp {
       String identity = faker.firstName() + faker.lastName() + faker.zipCode();
 
       // Create Conversations messaging grant
-      ConversationsGrant grant = new ConversationsGrant();
-      grant.configurationProfileSid = System.getProperty("TWILIO_CONFIGURATION_SID");
+      VideoGrant grant = new VideoGrant();
+      grant.configurationProfileSid = System.getenv("TWILIO_CONFIGURATION_SID");
 
       // Create access token
       AccessToken token = new AccessToken.Builder(
@@ -45,7 +46,7 @@ public class Webapp {
       // create JSON response payload
       HashMap<String, String> json = new HashMap<>();
       json.put("identity", identity);
-      json.put("token", token.toJWT());
+      json.put("token", token.toJwt());
 
       // Render JSON response
       Gson gson = new Gson();

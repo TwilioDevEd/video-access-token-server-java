@@ -24,15 +24,15 @@
             <version>2.2.4</version>
         </dependency>
         <dependency>
-			<groupId>com.github.javafaker</groupId>
-			<artifactId>javafaker</artifactId>
-			<version>0.2</version>
-		</dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>0.2</version>
+        </dependency>
         <dependency>
-			<groupId>com.twilio.sdk</groupId>
-			<artifactId>twilio-java-sdk</artifactId>
-			<version>6.0.1-edge</version>
-		</dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>(7.0,7.9)</version>
+        </dependency>
     </dependencies>
     
     <build>

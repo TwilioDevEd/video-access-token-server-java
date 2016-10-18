@@ -9,11 +9,11 @@ if (!navigator.webkitGetUserMedia && !navigator.mozGetUserMedia) {
   alert('WebRTC is not available in your browser.');
 }
 
-$.getJSON('/token.php', function (data) {
+$.getJSON('/token', function (data) {
   identity = data.identity;
 
-  // Create a Conversations Client and connect to Twilio
-  videoClient = new Twilio.Video.Client(data.token);
+  // Create a Video Client and connect to Twilio
+  videoClient = new Twilio.Video.Client(data.token, {'logLevel':'debug'});
   document.getElementById('room-controls').style.display = 'block';
 
   // Bind button to join room
@@ -71,7 +71,7 @@ function roomJoined(room) {
     log("Participant '" + participant.identity + "' left the room");
   });
 
-  // When the conversation ends, stop capturing local video
+  // When the room ends, stop capturing local video
   room.on('disconnected', function () {
     log('Left');
     room.localParticipant.media.detach();

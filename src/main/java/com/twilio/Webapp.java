@@ -1,7 +1,5 @@
 package com.twilio;
 
-import com.google.gson.Gson;
-
 import com.github.javafaker.Faker;
 import com.google.gson.Gson;
 import com.twilio.jwt.accesstoken.AccessToken;

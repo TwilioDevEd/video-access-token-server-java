@@ -25,6 +25,9 @@ local.properties
 .loadpath
 nb-configuration.xml
 
+.idea
+*.iml
+
 # Eclipse Core
 .project
 

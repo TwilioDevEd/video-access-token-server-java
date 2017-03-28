@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Properties;
 
+import static spark.Spark.afterAfter;
 import static spark.Spark.get;
 import static spark.Spark.staticFileLocation;
 
@@ -24,6 +25,9 @@ public class Webapp {
 
     // Create a Faker instance to generate a random username for the connecting user
     Faker faker = new Faker();
+
+    // Log all requests and responses
+    afterAfter(new LoggingFilter());
 
     // Create an access token using our Twilio credentials
     get("/token", "application/json", (request, response) -> {
@@ -50,6 +54,8 @@ public class Webapp {
       Gson gson = new Gson();
       return gson.toJson(json);
     });
+
+
   }
 
   private static void dotenv() throws Exception {

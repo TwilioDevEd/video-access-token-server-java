@@ -19,7 +19,6 @@ public class Webapp {
 
   public static void main(String[] args) throws Exception {
     // Load the .env file into environment
-    //dotenv();
     staticFileLocation("/public");
 
     // Log all requests and responses
@@ -48,17 +47,5 @@ public class Webapp {
 
       return token.toJwt();
     });
-  }
-
-  private static void dotenv() throws Exception {
-    final File env = new File(".env");
-    if (!env.exists()) {
-      return;
-    }
-
-    final Properties props = new Properties();
-    props.load(new FileInputStream(env));
-    props.putAll(System.getenv());
-    props.entrySet().forEach(p -> System.setProperty(p.getKey().toString(), p.getValue().toString()));
   }
 }

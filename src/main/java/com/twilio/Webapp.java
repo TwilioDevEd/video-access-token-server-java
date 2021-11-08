@@ -9,15 +9,24 @@ import java.util.Properties;
 
 import static spark.Spark.afterAfter;
 import static spark.Spark.get;
+import static spark.Spark.staticFileLocation;
+import static spark.Spark.internalServerError;
+import static spark.Spark.notFound;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class Webapp {
+  private static Dotenv env = Dotenv.configure().ignoreIfMissing().load();
 
   public static void main(String[] args) throws Exception {
     // Load the .env file into environment
-    dotenv();
+    //dotenv();
+    staticFileLocation("/public");
 
     // Log all requests and responses
     afterAfter(new LoggingFilter());
+    // Using string/html to handle errors
+    internalServerError("<html><body><h1>Something went wrong!</h1><h2>Our Engineers are on it</h2><a href='/'>Go Home</a></body></html>");
+    notFound("<html><body><h1>Page not found</h1><a href='/'>Go Home</a></body></html>");
 
     // Create an access token using our Twilio credentials
     get("/", (request, response) -> {
@@ -32,9 +41,9 @@ public class Webapp {
 
       // Create access token
       final AccessToken token = new AccessToken.Builder(
-        System.getProperty("TWILIO_ACCOUNT_SID"),
-        System.getProperty("TWILIO_API_KEY"),
-        System.getProperty("TWILIO_API_SECRET")
+        env.get("TWILIO_ACCOUNT_SID"),
+        env.get("TWILIO_API_KEY"),
+        env.get("TWILIO_API_SECRET")
       ).identity(identity).grant(grant).build();
 
       return token.toJwt();

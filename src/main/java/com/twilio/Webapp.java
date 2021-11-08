@@ -13,6 +13,10 @@ import static spark.Spark.staticFileLocation;
 import static spark.Spark.internalServerError;
 import static spark.Spark.notFound;
 import io.github.cdimascio.dotenv.Dotenv;
+import spark.ModelAndView;
+import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Webapp {
   private static Dotenv env = Dotenv.configure().ignoreIfMissing().load();
@@ -23,9 +27,20 @@ public class Webapp {
 
     // Log all requests and responses
     afterAfter(new LoggingFilter());
-    // Using string/html to handle errors
-    internalServerError("<html><body><h1>Something went wrong!</h1><h2>Our Engineers are on it</h2><a href='/'>Go Home</a></body></html>");
-    notFound("<html><body><h1>Page not found</h1><a href='/'>Go Home</a></body></html>");
+
+    // Handle errors
+    internalServerError((request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      return new ThymeleafTemplateEngine().render(
+          new ModelAndView(model, "error")
+      );
+    });
+    notFound((request, response) -> {
+        Map<String, Object> model = new HashMap<String, Object>();
+        return new ThymeleafTemplateEngine().render(
+            new ModelAndView(model, "error")
+        );
+    });
 
     // Create an access token using our Twilio credentials
     get("/", (request, response) -> {

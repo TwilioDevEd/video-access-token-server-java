@@ -22,9 +22,6 @@ public class Webapp {
   private static Dotenv env = Dotenv.configure().ignoreIfMissing().load();
 
   public static void main(String[] args) throws Exception {
-    // Load the .env file into environment
-    staticFileLocation("/public");
-
     // Log all requests and responses
     afterAfter(new LoggingFilter());
 

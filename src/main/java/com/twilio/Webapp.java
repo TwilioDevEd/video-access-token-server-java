@@ -9,15 +9,35 @@ import java.util.Properties;
 
 import static spark.Spark.afterAfter;
 import static spark.Spark.get;
+import static spark.Spark.staticFileLocation;
+import static spark.Spark.internalServerError;
+import static spark.Spark.notFound;
+import io.github.cdimascio.dotenv.Dotenv;
+import spark.ModelAndView;
+import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Webapp {
+  private static Dotenv env = Dotenv.configure().ignoreIfMissing().load();
 
   public static void main(String[] args) throws Exception {
-    // Load the .env file into environment
-    dotenv();
-
     // Log all requests and responses
     afterAfter(new LoggingFilter());
+
+    // Handle errors
+    internalServerError((request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      return new ThymeleafTemplateEngine().render(
+          new ModelAndView(model, "error")
+      );
+    });
+    notFound((request, response) -> {
+        Map<String, Object> model = new HashMap<String, Object>();
+        return new ThymeleafTemplateEngine().render(
+            new ModelAndView(model, "error")
+        );
+    });
 
     // Create an access token using our Twilio credentials
     get("/", (request, response) -> {
@@ -32,24 +52,12 @@ public class Webapp {
 
       // Create access token
       final AccessToken token = new AccessToken.Builder(
-        System.getProperty("TWILIO_ACCOUNT_SID"),
-        System.getProperty("TWILIO_API_KEY"),
-        System.getProperty("TWILIO_API_SECRET")
+        env.get("TWILIO_ACCOUNT_SID"),
+        env.get("TWILIO_API_KEY"),
+        env.get("TWILIO_API_SECRET")
       ).identity(identity).grant(grant).build();
 
       return token.toJwt();
     });
-  }
-
-  private static void dotenv() throws Exception {
-    final File env = new File(".env");
-    if (!env.exists()) {
-      return;
-    }
-
-    final Properties props = new Properties();
-    props.load(new FileInputStream(env));
-    props.putAll(System.getenv());
-    props.entrySet().forEach(p -> System.setProperty(p.getKey().toString(), p.getValue().toString()));
   }
 }

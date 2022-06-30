@@ -27,7 +27,7 @@
         <dependency>
             <groupId>com.twilio.sdk</groupId>
             <artifactId>twilio</artifactId>
-            <version>7.9.0</version>
+            <version>8.32.0</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
